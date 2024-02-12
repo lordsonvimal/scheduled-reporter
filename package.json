@@ -46,6 +46,7 @@
     "react-table-6": "6.11.0",
     "react-tagsinput": "3.19.0",
     "react_ujs": "2.4.4",
+    "semver": "7.6.0",
     "set-value": "4.0.1",
     "titleize": "2.1.0",
     "underscore.string": "3.3.5",

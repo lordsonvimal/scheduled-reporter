@@ -1,16 +1,40 @@
-import { getDependencies } from "./project_helper.mjs";
+import { getDependencies, getDependencyVersion } from "./project_helper.mjs";
+import semver from "semver";
 
-function fetchLatestVersions() {
-  // fetch(`https://registry.npmjs.org/-/v1/search?text=${key}&size=1`).then(res => res.json()).then(res => console.log(res.objects[0]));
+function getLatestVersionInMajorRange(versions, version) {
+  return versions.filter(v => semver.satisfies(v, `^${version}`)).sort(semver.compare).pop();
+}
 
-  getDependencies().forEach((dependency, index) => {
-    fetch(`https://registry.npmjs.org/${dependency}`).then(res => res.json()).then(res => {
-      console.log(`[Fetched]: ${index + 1}: ${dependency}`);
-    });
-  });
+function getLatestVersion(versions) {
+  return versions.sort(semver.compare).pop();
+}
 
-  // Try to fetch in less calls
-  // fetch(`https://registry.npmjs.org/-/package/${getDependencies().join(',')}/dist-tags`).then(res => res.json()).then(res => console.log(res));
+async function getVersionDetails(dependency, currentVersion) {
+  try {
+    const response = await fetch(`https://registry.npmjs.org/${dependency}`);
+    const json = await response.json();
+    const versions = Object.keys(json.versions);
+    if (dependency === "semver") console.log(json);
+    return {
+      name: dependency,
+      latest: getLatestVersion(versions),
+      latestInCurrentMajor: getLatestVersionInMajorRange(versions, currentVersion),
+      deprecated: json.versions[currentVersion]?.deprecated
+    };
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+async function fetchLatestVersions() {
+  const packageVersions = [];
+  const dependencies = getDependencies();
+  for (let i = 0; i < dependencies.length; i++) {
+    const dependency = dependencies[i];
+    const detail = await getVersionDetails(dependency, getDependencyVersion(dependency));
+    packageVersions.push(detail);
+    // console.log(detail);
+  }
 }
 
 export {

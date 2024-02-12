@@ -5,8 +5,9 @@ function getDependencies() {
 }
 
 function getDependencyVersion(dependency) {
-  console.log(dependency);
-  return project.dependencies[dependency] || project.devDependencies[dependency];
+  let version = project.dependencies[dependency] || project.devDependencies[dependency];
+  version = version.replace("^", "").replace("~", "");
+  return version;
 }
 
 export {
