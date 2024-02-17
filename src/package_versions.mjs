@@ -26,7 +26,7 @@ async function getVersionDetails(dependency, currentVersion) {
   }
 }
 
-async function fetchLatestVersions() {
+async function reportLatestVersions() {
   const packageVersions = [];
   const dependencies = getDependencies();
   for (let i = 0; i < dependencies.length; i++) {
@@ -38,5 +38,5 @@ async function fetchLatestVersions() {
 }
 
 export {
-  fetchLatestVersions
+  reportLatestVersions
 };

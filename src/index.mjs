@@ -1,7 +1,9 @@
-import { fetchLatestVersions } from "./package_versions.mjs";
+import { reportLatestVersions } from "./package_versions.mjs";
+import { audit } from "./security_audit.mjs";
 
 function main() {
-  fetchLatestVersions();
+  // reportLatestVersions();
+  audit();
 }
 
 main();
