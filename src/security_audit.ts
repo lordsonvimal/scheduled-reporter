@@ -3,7 +3,7 @@ import { exec } from "child_process";
 function audit() {
   console.log('Current working directory:', process.cwd());
 
-  exec("yarn audit --json", (error, stdout, stderr) => {
+  exec("yarn audit --json", (_error, stdout, stderr) => {
     if (stderr) {
       console.error(`yarn audit command returned stderr: ${stderr}`);
       return;
