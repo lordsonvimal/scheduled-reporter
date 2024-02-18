@@ -1,3 +1,6 @@
+import { Yarn4 } from "./yarn4.ts";
+import { process } from "../process/index.ts";
+
 type AuditReport = {
   critical: number,
   high: number,
@@ -26,6 +29,19 @@ class Audit {
   }
 }
 
+function audit() {
+  const yarn = new Yarn4();
+  process(yarn.command, (error, stdout, stderr) => {
+    if (stderr) {
+      console.error(`yarn audit command returned stderr: ${stderr}`);
+      return;
+    }
+
+    yarn.audit(error, stdout, stderr);
+  });
+}
+
 export {
-  Audit
+  Audit,
+  audit
 }
