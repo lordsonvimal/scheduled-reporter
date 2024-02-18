@@ -1,5 +1,5 @@
 import { Audit } from "./audit.ts";
-import { process } from "../process/index.ts";
+import { process } from "../process/process.ts";
 
 type Line = {
   type: "auditSummary" | string,

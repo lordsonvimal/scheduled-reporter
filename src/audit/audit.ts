@@ -1,5 +1,5 @@
 import { Yarn4 } from "./yarn4.ts";
-import { process } from "../process/index.ts";
+import { process } from "../process/process.ts";
 
 type AuditReport = {
   critical: number,

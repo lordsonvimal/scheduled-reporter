@@ -1,5 +1,5 @@
 import { Audit } from "./audit.ts";
-import { ProcessCallback } from "../process/index.ts";
+import { ProcessCallback } from "../process/process.ts";
 
 type Line = {
   value: string, // package name

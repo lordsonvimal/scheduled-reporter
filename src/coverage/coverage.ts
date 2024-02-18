@@ -1,5 +1,5 @@
 import fs from "fs";
-import { process } from "../process/index.ts";
+import { process } from "../process/process.ts";
 
 function coverage() {
   process("yarn test --coverage --json --silent", (_error, _stdout, stderr) => {
