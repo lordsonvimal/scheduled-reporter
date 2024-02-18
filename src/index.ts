@@ -1,6 +1,6 @@
 // import { versions } from "./package_versions.ts";
-import { audit } from "./security_audit.ts";
-import { coverage } from "./test_coverage.ts";
+import { audit } from "./audit/index.ts";
+import { coverage } from "./coverage/coverage.ts";
 
 function main() {
   // versions();

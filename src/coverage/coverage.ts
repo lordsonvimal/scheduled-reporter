@@ -1,8 +1,8 @@
-import { exec } from "child_process";
 import fs from "fs";
+import { process } from "../process/index.ts";
 
 function coverage() {
-  exec("yarn test --coverage --json --silent", (_error, _stdout, stderr) => {
+  process("yarn test --coverage --json --silent", (_error, _stdout, stderr) => {
     if (stderr) {
       console.error(`yarn audit command returned stderr: ${stderr}`);
     }

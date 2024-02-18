@@ -1,31 +1,18 @@
-type AuditReport = {
-  critical: number,
-  high: number,
-  low: number,
-  moderate: number
-};
+import { exec } from "child_process";
+import { Yarn4 } from "./yarn4.ts";
 
-class Audit {
-  command: string;
-  report: AuditReport;
+function audit() {
+  const yarn = new Yarn4();
+  exec(yarn.command, (error, stdout, stderr) => {
+    if (stderr) {
+      console.error(`yarn audit command returned stderr: ${stderr}`);
+      return;
+    }
 
-  constructor() {
-    this.command = "";
-    this.report = {
-      critical: 0,
-      high: 0,
-      low: 0,
-      moderate: 0
-    };
-  }
-
-  print() {
-    const { critical, high, low, moderate } = this.report;
-    const total = critical + high + low + moderate;
-    console.log(`Total vulnerabilities: ${total}, Critical: ${critical}, High: ${high}, Moderate: ${moderate}, Low: ${low}`);
-  }
+    yarn.audit(error, stdout, stderr);
+  });
 }
 
 export {
-  Audit
+  audit
 }

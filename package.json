@@ -1,7 +1,7 @@
 {
   "name": "scheduled-github-reporter",
-  "version": "1.0.0",
-  "description": "Reporter for yarn audit, jest --coverage and outdated package versions",
+  "version": "0.1.0",
+  "description": "Reporter for yarn audit, jest --coverage and package versions",
   "main": "index.js",
   "author": "Lordson Vimal <ylordson@gmail.com>",
   "license": "MIT",

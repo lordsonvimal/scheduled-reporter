@@ -1,5 +1,5 @@
-import { Audit } from "./index.ts";
-import { ExecException } from "child_process";
+import { Audit } from "./audit.ts";
+import { ProcessCallback } from "../process/index.ts";
 
 type Line = {
   value: string, // package name
@@ -15,7 +15,9 @@ type Line = {
 }
 
 class Yarn4 extends Audit {
-  command = "yarn npm audit --json --no-deprecations";
+  constructor() {
+    super("yarn npm audit --json --no-deprecations");
+  }
 
   parseLine(line: string) {
     try {
@@ -26,7 +28,7 @@ class Yarn4 extends Audit {
     }
   }
 
-  audit(_error: ExecException | null, stdout: string, _stderr: string) {
+  audit: ProcessCallback = (_error, stdout, _stderr) => {
     stdout.split("\n")
       .filter(line => line.trim() !== "")
       .forEach(line => this.parseLine(line));

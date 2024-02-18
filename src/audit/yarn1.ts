@@ -1,5 +1,5 @@
-import { Audit } from "./index.ts";
-import { ExecException } from "child_process";
+import { Audit } from "./audit.ts";
+import { process } from "../process/index.ts";
 
 type Line = {
   type: "auditSummary" | string,
@@ -9,7 +9,9 @@ type Line = {
 }
 
 class Yarn1 extends Audit {
-  command = "yarn audit --json";
+  constructor() {
+    super("yarn audit --json");
+  }
 
   parseLine(line: string) {
     try {
@@ -22,10 +24,17 @@ class Yarn1 extends Audit {
     }
   }
 
-  audit(_error: ExecException | null, stdout: string, _stderr: string) {
-    stdout.split("\n")
+  audit() {
+    process(this.command, (_error, stdout, stderr) => {
+      if (stderr) {
+        console.error(`yarn audit command returned stderr: ${stderr}`);
+        return;
+      }
+
+      stdout.split("\n")
       .filter(line => line.trim() !== "")
       .forEach(line => this.parseLine(line));
+    });
   }
 }
 

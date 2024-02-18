@@ -1,4 +1,4 @@
-import project from "../package.json" assert { type: "json" };
+import project from "../../package.json" assert { type: "json" };
 
 type Dependency = keyof (typeof project.dependencies);
 type DevDependency = keyof (typeof project.devDependencies);

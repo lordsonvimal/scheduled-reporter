@@ -1,4 +1,4 @@
-import { getDependencies, getDependencyVersion } from "./project_helper.ts";
+import { getDependencies, getDependencyVersion } from "./utils.ts";
 import semver from "semver";
 
 function getLatestVersionInMajorRange(versions: string[], version: string) {
