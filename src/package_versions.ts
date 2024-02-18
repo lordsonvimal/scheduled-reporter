@@ -14,7 +14,6 @@ async function getVersionDetails(dependency: string, currentVersion: string) {
     const response = await fetch(`https://registry.npmjs.org/${dependency}`);
     const json = await response.json();
     const versions = Object.keys(json.versions);
-    if (dependency === "semver") console.log(json);
     return {
       name: dependency,
       latest: getLatestVersion(versions),
@@ -26,14 +25,17 @@ async function getVersionDetails(dependency: string, currentVersion: string) {
   }
 }
 
-async function versions() {
+function versions() {
   const packageVersions = [];
   const dependencies = getDependencies();
   for (let i = 0; i < dependencies.length; i++) {
     const dependency = dependencies[i];
-    const detail = await getVersionDetails(dependency, getDependencyVersion(dependency));
-    packageVersions.push(detail);
-    // console.log(detail);
+    getVersionDetails(dependency, getDependencyVersion(dependency)).then(response => {
+      packageVersions.push(response);
+      console.log(response);
+    }).catch(error => {
+      console.error(error);
+    });
   }
 }
 
