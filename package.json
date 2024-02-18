@@ -5,7 +5,6 @@
   "main": "index.js",
   "author": "Lordson Vimal <ylordson@gmail.com>",
   "license": "MIT",
-  "private": false,
   "type": "module",
   "engines": {
     "node": "20.11.0",
@@ -83,5 +82,5 @@
     "react-test-renderer": "16.8.6",
     "typescript": "5.3.3"
   },
-  "packageManager": "yarn@1.22.4"
+  "packageManager": "yarn@4.1.0"
 }
