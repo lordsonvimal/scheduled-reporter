@@ -1,5 +1,5 @@
-import { Audit } from "./audit.ts";
-import { ProcessCallback } from "../process/process.ts";
+import { AuditBase } from "./audit_base.ts";
+import { process } from "../process/process.ts";
 
 type Line = {
   value: string, // package name
@@ -14,7 +14,7 @@ type Line = {
   }
 }
 
-class Yarn4 extends Audit {
+class Yarn4 extends AuditBase {
   constructor() {
     super("yarn npm audit --json --no-deprecations");
   }
@@ -28,10 +28,17 @@ class Yarn4 extends Audit {
     }
   }
 
-  audit: ProcessCallback = (_error, stdout, _stderr) => {
-    stdout.split("\n")
+  audit = () => {
+    process(this.command, (_error, stdout, stderr) => {
+      if (stderr) {
+        console.error(`yarn audit command returned stderr: ${stderr}`);
+        return;
+      }
+
+      stdout.split("\n")
       .filter(line => line.trim() !== "")
       .forEach(line => this.parseLine(line));
+    });
     this.print();
   }
 }

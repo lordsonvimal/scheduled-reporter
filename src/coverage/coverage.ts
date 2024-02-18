@@ -15,7 +15,11 @@ function coverage() {
       const statements = total.statements.pct;
       const branches = total.branches.pct;
       const functions = total.functions.pct;
+      console.log("\n");
+      console.log("=============================================");
       console.log(`Total Coverage = ${(lines + statements + branches + functions) / 4}%`);
+      console.log("=============================================");
+      console.log("\n");
     } catch (err) {
       console.error("Error parsing / reading JSON:", err);
     }

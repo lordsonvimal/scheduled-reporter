@@ -1,4 +1,4 @@
-import { Audit } from "./audit.ts";
+import { AuditBase } from "./audit_base.ts";
 import { process } from "../process/process.ts";
 
 type Line = {
@@ -8,7 +8,7 @@ type Line = {
   }
 }
 
-class Yarn1 extends Audit {
+class Yarn1 extends AuditBase {
   constructor() {
     super("yarn audit --json");
   }
